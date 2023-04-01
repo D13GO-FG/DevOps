@@ -14,9 +14,9 @@ jobs:
                 uses: actions/checkout@v3
               - name: Step Two
                 run: |
-                  touch newFile.yaml
+                  touch ${{ secrets.MY_SECRET }}.yaml
                   echo "Please Alexis is Friday let me escape" >> newFile.yaml
-                  cat newFile.yaml
+                  cat ${{ secrets.MY_SECRET }}.yaml
                   pwd
     mySecoundJob:
               needs: [myFirstJob]
