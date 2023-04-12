@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Save version
+        id: version
+        run: echo ::set-output name=tag::$(echo $(node -p -e "require('./package.json').version"))
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Build Docker image
+        if: ${{ success() }}
+        run: |
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker build . --file Dockrfile --tag ldiegoflores/devops_itj:${{steps.version.outputs.tag}}
+          docker push ldiegoflores/devops_itj:${{steps.version.outputs.tag}}
