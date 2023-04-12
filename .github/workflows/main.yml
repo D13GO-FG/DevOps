@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+defaults:
+  run:
+    working-directory: capstone_project/hello-world
+
 jobs:
   build:
     runs-on: ubuntu-latest
