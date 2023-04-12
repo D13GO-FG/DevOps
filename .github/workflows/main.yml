@@ -39,5 +39,5 @@ jobs:
         if: ${{ success() }}
         run: |
           echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker build . --file Dockrfile --tag ldiegoflores/devops_itj:${{steps.version.outputs.tag}}
+          docker build . --file Dockerfile --tag ldiegoflores/devops_itj:${{steps.version.outputs.tag}}
           docker push ldiegoflores/devops_itj:${{steps.version.outputs.tag}}
