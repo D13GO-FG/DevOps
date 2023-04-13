@@ -1,0 +1,13 @@
+- name: My First Playbook
+  hosts: all
+  become: true
+  tasks:
+    - name: Ping Check using ping module
+      ping:
+
+    - name: Update HTML file
+      lineinfile:
+        path: /app/src/App.js
+        regexp: "Hello World!"
+        line: "Hello DevOps!"
+        state: present
