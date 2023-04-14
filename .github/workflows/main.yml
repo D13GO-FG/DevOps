@@ -40,9 +40,14 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: Login Docker Hub, Build Docker image using Dockerfile and Push
+      - name: Login Docker Hub
         if: ${{ success() }}
-        run: |
-          echo $DOCKER_USER | docker login -u $DOCKER_PASSWORD --password-stdin
-          docker build . --file Dockerfile --tag $DOCKER_USER/$REPO_NAME:${{steps.version.outputs.tag}}
-          docker push $DOCKER_USER/$REPO_NAME:${{steps.version.outputs.tag}}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+        
+      - name: Build Docker Image
+        if: ${{ success() }}
+        run: docker build . --file Dockerfile --tag $DOCKER_USER/$REPO_NAME:${{steps.version.outputs.tag}}
+        
+      - name: Push to Docker Hub
+        if: ${{ success() }}
+        run: docker push $DOCKER_USER/$REPO_NAME:${{steps.version.outputs.tag}}
