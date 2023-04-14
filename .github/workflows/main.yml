@@ -6,12 +6,17 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
+  DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+  REPO_NAME: devops_itj
+
 defaults:
   run:
-    working-directory: capstone_project/hello-world
+    working-directory: ./capstone_project/hello-world
 
 jobs:
-  build:
+  test_to_build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -30,14 +35,14 @@ jobs:
 
       - name: Save version
         id: version
-        run: echo ::set-output name=tag::$(echo $(node -p -e "require('./package.json').version"))
+        run: echo tag = $(echo $(node -p -e "require('./package.json').version")) >> $GITHUB_OUTPUT
 
       - name: Run tests
         run: npm run test
 
-      - name: Build Docker image
+      - name: Login Docker Hub, Build Docker image using Dockerfile and Push
         if: ${{ success() }}
         run: |
-          echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker build . --file Dockerfile --tag ldiegoflores/devops_itj:${{steps.version.outputs.tag}}
-          docker push ldiegoflores/devops_itj:${{steps.version.outputs.tag}}
+          echo $DOCKER_USER | docker login -u $DOCKER_PASSWORD --password-stdin
+          docker build . --file Dockerfile --tag $DOCKER_USER/$REPO_NAME:${{steps.version.outputs.tag}}
+          docker push $DOCKER_USER/$REPO_NAME:${{steps.version.outputs.tag}}
