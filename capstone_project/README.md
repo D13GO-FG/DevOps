@@ -71,6 +71,31 @@ In this project, you will be using some of the tools and technologies you have l
 
 ---
 
+- Type following commands:
+
+```bash
+cd capstone_project/
+cd hello-world/
+npm install
+npm test
+npm start
+```
+
+- Result:
+
+```bash
+Compiled successfully!
+
+You can now view hello-world in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://172.28.98.163:3000
+```
+
+---
+
+---
+
 ## 2. Containerize the application
 
 - Using docker, containerize the application.
@@ -82,29 +107,29 @@ In this project, you will be using some of the tools and technologies you have l
 
 1.  Containerize using image from local project:
 
-- First in hello world folder, in command line type:
+- First, navigate to the "hello world" folder in your command line and type:
 
-```
+```bash
 docker build -t {name_image} .
 ```
 
-- Then run run it in port 3000 using:
+- Then, run it on port 3000 using the following command:
 
-```
+```bash
 sudo docker run -it -p 3000:3000 -d {name_image}
 ```
 
-2. Containerize using image from Ducker Hub:
+2. Containerize using image from [Ducker Hub](https://hub.docker.com/r/ldiegoflores/devops_itj/tags):
 
-- Current lastest version in my docker hub, type:
+- To use the latest version from my Docker Hub, type:
 
-```
+```bash
 sudo docker run -it -p 3000:3000 -d ldiegoflores/devops_itj:0.1.0
 ```
 
-3. Finally for both options open you favorite browser and go to the next url:
+3. Finally, for both options, open your favorite browser and go to the following URL:
 
-```
+```bash
 http://localhost:3000/
 ```
 
@@ -121,20 +146,20 @@ http://localhost:3000/
 
 ## Done!!!!
 
-- In the root of this project you'll find .github with [main.yml](/.github/workflows/main.yml) in workflows.
-  - Trigger both push and pull request
-  - Envirenment variables for docker username, password and repo name
-  - Default work directory pointer to run all commands in right directory where is hello-world
+- In the root of this project, you'll find a `.github` folder with a [main.yml](/.github/workflows/main.yml) file in the workflows directory.
+  - It triggers both push and pull request events.
+  - It sets environment variables for Docker username, password, and repo name.
+  - The default working directory points to the hello-world directory to run all commands in the right directory.
   - Steps:
-    - Run ubuntu latest
-    - Install dependencies
-    - Save version to create repository versibles in docker hub
-    - Run test
-    - If test pass
-      - Login Docker Hub
-      - Build Docker Image
-      - Push to Docker Hub
-- Finally you can get lastest image version in https://hub.docker.com/r/ldiegoflores/devops_itj/tags
+    - Run Ubuntu latest.
+    - Install dependencies.
+    - Save the version to create repository versionable in Docker Hub.
+    - Run tests.
+    - If tests pass:
+      - Login to Docker Hub.
+      - Build Docker Image.
+      - Push to Docker Hub.
+- Finally, you can get the latest image version at: https://hub.docker.com/r/ldiegoflores/devops_itj/tags
 
 ---
 
@@ -146,28 +171,28 @@ http://localhost:3000/
 
 ## Done!!!!
 
-- First I added folder ansible_base with the files [Dockerfile](/capstone_project/ansible_base/Dockerfile) and [startup.sh](/capstone_project/ansible_base/startup.sh)
+- First, I added a folder called ansible_base with the files [Dockerfile](/capstone_project/ansible_base/Dockerfile) and [startup.sh](/capstone_project/ansible_base/startup.sh)
 
-- To achive this step is needed run Ansible in a container using [docker-compose.yml](/capstone_project/docker-compose.yml), typing:
+- To achieve this step, you need to run Ansible in a container using [docker-compose.yml](/capstone_project/docker-compose.yml) by typing the following command in the capstone_project/ directory:
 
 ```bash
 cd capstone_project/
 docker compose up
 ```
 
-- Ones is runnig both the ansible_controller and hello_word containers, open your favorite browser and search:
+- Once both the ansible_controller and hello_world containers are running, open your favorite browser and go to:
 
-```
+```bash
 http://localhost:3000/
 ```
 
-- The Open a new terminal and get into the ansible_controller machine
+- Then, open a new terminal and access the ansible_controller machine using the following command:
 
 ```bash
 docker exec -w /home/ansible_controller/ansible_files/ -ti ansible_controller bash
 ```
 
-- Finally to change "Hello World!" to "Hello DevOps!" in App.js, you need to run the [playbook.yml](/capstone_project/ansible_files/playbook.yml) making use of [inventory.ini](/capstone_project/ansible_files/inventory.ini) using:
+- Finally, to change "Hello World!" to "Hello DevOps!" in App.js, you need to run the [playbook.yml](/capstone_project/ansible_files/playbook.yml) using [inventory.ini](/capstone_project/ansible_files/inventory.ini) with the following command:
 
 ```bash
 ansible-playbook -i inventory.ini playbook.yml
@@ -177,20 +202,14 @@ ansible-playbook -i inventory.ini playbook.yml
 
 ## Tips
 
-To stop all running Docker containers, you can use either of these commands:
+- To delete all containers including its volumes use:
 
-```
-docker stop $(docker container ls -q)
-```
-
-To delete all containers including its volumes use:
-
-```
+```bash
 docker rm -f $(docker ps -aq)
 ```
 
-To delete all the images, use:
+- To delete all the images, use:
 
-```
+```bash
 docker rmi -f $(docker images -aq)
 ```

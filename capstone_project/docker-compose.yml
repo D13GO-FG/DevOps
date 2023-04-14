@@ -16,3 +16,4 @@ services:
     container_name: hello_world
     ports:
       - "3000:3000"
+      - "22:22"
