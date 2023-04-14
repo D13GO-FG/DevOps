@@ -35,7 +35,7 @@ jobs:
 
       - name: Save version
         id: version
-        run: echo "tag = $(echo $(node -p -e "require('./package.json').version"))" >> $GITHUB_OUTPUT
+        run: echo "tag = $(date +'%Y-%m-%d--%M-%S')" >> $GITHUB_OUTPUT
 
       - name: Run tests
         run: npm run test
