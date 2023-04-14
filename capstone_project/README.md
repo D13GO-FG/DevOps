@@ -69,8 +69,6 @@ In this project, you will be using some of the tools and technologies you have l
 
 ## Done!!!!
 
----
-
 - Type following commands:
 
 ```bash
@@ -91,8 +89,6 @@ You can now view hello-world in the browser.
   Local:            http://localhost:3000
   On Your Network:  http://172.28.98.163:3000
 ```
-
----
 
 ---
 
@@ -120,6 +116,12 @@ sudo docker run -it -p 3000:3000 -d {name_image}
 ```
 
 2. Containerize using image from [Ducker Hub](https://hub.docker.com/r/ldiegoflores/devops_itj/tags):
+
+- Pull image from Docker Hub
+
+```bash
+docker pull ldiegoflores/devops_itj:0.1.0
+```
 
 - To use the latest version from my Docker Hub, type:
 
@@ -197,6 +199,27 @@ docker exec -w /home/ansible_controller/ansible_files/ -ti ansible_controller ba
 ```bash
 ansible-playbook -i inventory.ini playbook.yml
 ```
+
+---
+
+## Evidence
+
+### - Step 1: Setup your development environment
+
+![step_1](/capstone_project/images/step_1.png)
+
+### - Step 2: Containerize the application
+
+![step_2](/capstone_project/images/step_2.png)
+
+### - Step 3: Create a CI Pipeline
+
+![step_3](/capstone_project/images/step_3.png)
+
+### - Step 4: Update "Hello World!" to "Hello DevOps!"
+
+![step_4](/capstone_project/images/step_4.png)
+![step_4_2](/capstone_project/images/step_4_2.png)
 
 ---
 
