@@ -1,5 +1,5 @@
 - name: My First Playbook
-  hosts: all
+  hosts: hello_world
   become: true
   tasks:
     - name: Ping Check using ping module

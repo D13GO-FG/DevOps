@@ -22,7 +22,7 @@ RUN npm install
 # Copy all the project files to the working directory
 COPY . .
 
-# Run commands to create user with all persimmions 
+# Run commands to create user with all permissions 
 RUN useradd -rm -d /home/webapp -s /bin/bash -g root -G sudo -u 1001 webapp
 RUN echo webapp:12345 | chpasswd
 RUN echo "webapp ALL=(ALL:ALL) NOPASSWD: ALL" |  EDITOR="tee -a"  visudo
